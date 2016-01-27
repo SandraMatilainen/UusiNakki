@@ -1,0 +1,7 @@
+[Bb]in*/
+[Dd]ebug*/
+[Rr]elease*/
+.vs/
+*.lock.json
+node_modules
+**/wwwroot/lib

@@ -1,0 +1,35 @@
+﻿@addTagHelper "*, Microsoft.AspNet.Mvc.TagHelpers"
+
+@section jumbotron {
+    <div class="jumbotron text-center">
+        <img src="~/Images/kompozure_logo_large.png" alt="" class="logo" />
+        <p>
+            Hello! You've been handed a coding task that is used to evaluate our applicants.
+        </p>
+    </div>
+}
+
+@section bottom {
+    <a class="btn btn-primary btn-lg" asp-controller="Home" asp-action="Step1">
+        Let's get started!
+    </a>
+}
+
+<p>The test aims to test that...</p>
+
+<ul>
+    <li>... you're proficient enough to read English (which you're if you can understand this text, congrats!).</li>
+    <li>... you can understand JavaScript and C# code.</li>
+    <li>... you can formulate exact questions that you can search for an answer using Internet search providers.</li>
+    <li>... you can rank and find only the relevant information.</li>
+    <li>... you're able to understand JavaScript and C# code.</li>
+    <li>... you're able to make changes to existing code base.</li>
+    <li>... you can implement new features.</li>
+    <li>... you know how to refactor your own and others code.</li>
+    <li>... you are able to debug and test code.</li>
+</ul>
+
+<p>
+    This test is <b>not</b> a speed test &ndash; you're not required to finish in order to be successful.
+    Just do things like you always do, and we'll know if you have it.
+</p>

@@ -1,0 +1,32 @@
+﻿@addTagHelper "*, Microsoft.AspNet.Mvc.TagHelpers"
+
+@section jumbotron {    
+    <div class="jumbotron text-center">
+        <img src="~/Images/kompozure_logo_large.png" alt="" class="logo" />
+        <p>
+            Thanks for taking our test!
+        </p>
+    </div>
+}
+
+@section bottom {
+    <a class="btn btn-primary btn-lg" asp-controller="Home" asp-action="Index">
+        Back to start
+    </a>
+}
+
+<p>
+    You made it 'till the end! Now, the only thing left to do is to review your code. Review
+    is a group review where you walk us through your implementation. Be prepared to answer
+    the following points:
+</p>
+
+<ol>
+    <li>All code comments tagged with <code>REVIEW QUESTION</code></li>
+    <li>What drove you to choose a certain way to implement something?</li>
+    <li>What are you thoughts on existing modules/code that were presented in this test?</li>
+    <li>What could be done better?</li>
+    <li>Did you learn something?</li>
+    <li>What was easy/hard?</li>
+    <li>If you got stuck, why did you get stuck?</li>
+</ol>
