@@ -5,18 +5,35 @@ using System.Threading.Tasks;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Blob;
 using Nakkitehdas.ViewModels;
+using Nakkitehdas.DataProviders;
 
 namespace Nakkitehdas.DataProviders
 {
     public class AzureData : IAzureData
     {
-        public List<IGrouping<int, ItemModel>> GetAzureBlobs()
+
+        public List<ItemModel> Get_Items_By_ParentId(string parentId)
+        {
+            var blob = GetAzureBlob();
+
+            var group = blob.First(k => k.Key.Equals(parentId));
+
+            List<ItemModel> model = new List<ItemModel>();
+
+            foreach (ItemModel im in group) {
+                model.Add(im);
+            }
+
+            return model;
+        }
+
+
+        public List<IGrouping<string, ItemModel>> GetAzureBlob()
         {
 
             var container = GetAzureContainer();
 
             List<ItemModel> model = new List<ItemModel>();
-
             // Loop over items within the container and output the length and URI.
             foreach (IListBlobItem item in container.ListBlobs(null, false))
             {
@@ -34,8 +51,8 @@ namespace Nakkitehdas.DataProviders
                     {
                         IsFile = false,
                         IsFolder = true,
-                        Name = directory.Prefix,
-                        ParentId = item.Parent != null ? item.Parent.Uri.Segments.Count() - 2 : 0
+                        Name = directory.Prefix.TrimEnd(new char[] { '/' }),
+                        ParentId =  "juuri"
                     });
                 }
 
@@ -50,7 +67,7 @@ namespace Nakkitehdas.DataProviders
                         IsFile = true,
                         IsFolder = false,
                         Name = blobFileName,
-                        ParentId = item.Parent != null ? item.Parent.Uri.Segments.Count() - 2 : 0
+                        ParentId = "juuri"
                     });
                 }
 
@@ -64,7 +81,7 @@ namespace Nakkitehdas.DataProviders
                 }
             }
             //this may be needed later on
-            List<IGrouping<int,ItemModel>> groupedItems = model.GroupBy(m => m.ParentId).ToList();
+            List<IGrouping<string,ItemModel>> groupedItems = model.GroupBy(m => m.ParentId).ToList();
 
             return groupedItems;
         }
@@ -98,13 +115,13 @@ namespace Nakkitehdas.DataProviders
 
                 if (blop.GetType() == typeof(CloudBlobDirectory))
                 {
-                    int pid = 0;
+                    string pid = "";
 
                     CloudBlobDirectory blobDir = (CloudBlobDirectory)iteratedBlob;
 
                     if (blobDir.Parent != null)
                     {
-                        pid = blobDir.Parent.Uri.Segments.Count() - 2;
+                        pid = blobDir.Parent.Uri.Segments.Last().TrimEnd(new char[] { '/' });
                     }
 
                     //add directory
@@ -112,23 +129,23 @@ namespace Nakkitehdas.DataProviders
                     {
                         IsFile = false,
                         IsFolder = true,
-                        Name = blobDir.Prefix,
+                        Name = blobDir.Uri.Segments.Last().TrimEnd(new char[] { '/' }),
                         ParentId = pid
                     });
                 }
                 //is a file
                 if (blop.GetType() == typeof(CloudBlockBlob))
                 {
-                    int id = 0;
+                    string id = "";
 
                     var blobFile = iteratedBlob as CloudBlockBlob;
                     //should have parents because is a subfolder
                     if (blobFile.Parent != null)
                     {
-                        id = blobFile.Parent.Uri.Segments.Count() - 2;
+                        id = blobFile.Parent.Uri.Segments.Last().TrimEnd(new char[] { '/' });
                     }
 
-                    string name = blobFile.Name;
+                    string name = blobFile.Uri.Segments.Last();
 
                     //add file
                     model.Add(new ItemModel()

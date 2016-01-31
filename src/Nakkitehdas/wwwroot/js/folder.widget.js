@@ -5,9 +5,11 @@ widget.directive("folderStructure", function () {
         restirct: "E",
         transclude: true,
         scope: true,
-        controller: ["$scope", "directoryApi", function ($scope, directoryApi) {
+        controller: ["$scope", "directoryApi", function ($scope, directoryApi ) {
             directoryApi.getItems($scope.path).then(function(items) {
                 $scope.items = items;
+            }, function () {
+                $scope.error = 'unable to get the items';
             });
         }],
         link: function (scope, element, attrs, ctrl, transclude) {
@@ -28,6 +30,7 @@ widget.directive("subFolderStructure", ["$compile", "$templateRequest", function
         restirct: "E",
         require: "^folderStructure",
         link: function (scope, element, attrs) {
+
             if (!attrs.parentId)
                 throw new Error("'parent-id' attribute is missing");
 

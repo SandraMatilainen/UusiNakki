@@ -11,7 +11,7 @@ namespace Nakkitehdas.ViewModels
 
         public bool IsFile { get; set; }
 
-        public int ParentId { get; set; }
-
+        public string ParentId { get; set; }
+        
     }
 }

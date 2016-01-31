@@ -15,13 +15,27 @@ namespace Nakkitehdas.Controllers
     {
         [FromServices]
         public IAzureData AzureData { get; set; }
-
-        // GET: api/values
+     
+    /// <summary>
+    /// returns root
+    /// </summary>
+    /// <returns></returns>
         [HttpGet]
         [Route("[action]")]
-        public List<IGrouping<int, ItemModel>> GetItems()
-        {         
-            return AzureData.GetAzureBlobs();
+        public List<ItemModel> GetItems()
+        {
+            return AzureData.Get_Items_By_ParentId("juuri");
         }
+
+        // GET api/values/7
+        [HttpGet]
+        [Route("[action]/{id}")]
+        public List<ItemModel> GetItems(string id)
+        {
+            return AzureData.Get_Items_By_ParentId(id);
+        }
+
+
+
     }
 }
