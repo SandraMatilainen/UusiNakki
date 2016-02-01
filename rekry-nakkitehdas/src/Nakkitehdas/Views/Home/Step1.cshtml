@@ -1,0 +1,85 @@
+﻿@addTagHelper "*, Microsoft.AspNet.Mvc.TagHelpers"
+
+@section bottom {
+    <a class="btn btn-primary btn-lg" asp-controller="Home" asp-action="Step2">
+        Works! Moving forward... <i class="glyphicon glyphicon-chevron-right"></i>
+    </a>
+}
+
+<p>
+    It is a warm summer day. You're on your own in our office at Manski, everybody
+    else is enjoying cold beverages on the beach &ndash; expect you and the head of
+    our biggest client, Nakkitehdas Oy. You're a developer in charge during this summer time.
+</p>
+
+<p>
+    We're very close to the finish line but the client wants one more feature
+    to call it done. Previously, Jarno had implemented this nice looking tree
+    structure and demoed it for the client:
+</p>
+
+<div class="code">
+    <ul class="folder-structure">
+        <li>
+            <i class="glyphicon glyphicon-folder-open"></i>
+            Hakemisto
+
+            <ul class="folder-structure">
+                <li>
+                    <i class="glyphicon glyphicon-folder-open"></i>
+                    Alihakemisto
+
+                    <ul class="folder-structure">
+                        <li>
+                            <i class="glyphicon glyphicon-file"></i>
+                            Nakkiresepti.txt
+                        </li>
+                        <li>
+                            <i class="glyphicon glyphicon-file"></i>
+                            missio.txt
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <i class="glyphicon glyphicon-file"></i>
+                    Lihamyllyn käyttöohje.txt
+                </li>
+            </ul>
+        </li>
+        <li>
+            <i class="glyphicon glyphicon-file"></i>
+            Tiedosto.txt
+        </li>
+    </ul>
+</div>
+
+<p>
+    Jarno started making this widget but then headed to the holidays. So,
+    you're required to finish it.
+</p>
+
+<p>
+    When a folder is clicked, it expands and returns all contents inside.
+    Folders can contain files or nested folders.
+</p>
+
+<p>
+    Files and folders are stored in Microsoft Azure Blob storage. Blob storage
+    offers functionality to upload, download and list blobs.
+    Blobs are chunks of binary data that can be manipulated using Azure Blob
+    storage SDK. Client side widget is implemented with AngularJS. AngularJS is
+    a client side MVVM library.
+</p>
+
+<p>
+    Your task is to implement methods to fetch the required directory
+    structure from Azure Blob storage. In this test, we're using Azure storage
+    emulator, so you don't have to worry about connection strings. Below is the
+    structure that is fetched by using your code. Press <em>Works</em>
+    when you get it working.
+</p>
+
+<div class="code">
+    <div ng-include="'/template/folder-structure.html'"></div>
+</div>
+

@@ -1,0 +1,25 @@
+﻿.logo {
+   width: 50%;
+   height: 50%;
+}
+
+.navbar-header > .logo {
+   width: initial;
+   height: 35px;
+   margin-top: 6px;
+}
+
+.code {
+   background-color: #eee;
+   padding: 5px;
+   border: 1px solid #ccc;
+}
+
+ul.folder-structure {
+   list-style-type: none;
+   padding-left: 20px;
+}
+
+a[ng-click] {
+   cursor: pointer;
+}
