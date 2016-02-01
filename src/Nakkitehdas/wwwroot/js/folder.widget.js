@@ -4,9 +4,22 @@ widget.directive("folderStructure", function () {
     return {
         restirct: "E",
         transclude: true,
+       // template:'<div ng-model="path.path" />',
         scope: true,
-        controller: ["$scope", "directoryApi", function ($scope, directoryApi ) {
-            directoryApi.getItems($scope.path).then(function(items) {
+        controller: ["$scope", "directoryApi", function ($scope, directoryApi)
+        {
+            //dirty hack to get the last clicked folder
+            //change to use controller => $scope.path
+            var myobj = [];
+            var folderPath = "";
+            if ($scope.$parent.$parent.$$watchers != undefined) {                           
+                var index  = 0;
+                index = $scope.$parent.$parent.$$watchers.length;
+                myobj = $scope.$parent.$parent.$$watchers[index-1];
+                folderPath = myobj['last'];
+            }
+
+            directoryApi.getItems(folderPath).then(function(items) {
                 $scope.items = items;
             }, function () {
                 $scope.error = 'unable to get the items';
@@ -38,6 +51,8 @@ widget.directive("subFolderStructure", ["$compile", "$templateRequest", function
                 throw new Error("'template' attribute is missing");
 
             var id = scope.$eval(attrs.parentId);
+
+           // var id = scope.$eval(attrs.parentId);
 
             $templateRequest(attrs.template).then(function (html) {
                 var template = angular.element(html);
@@ -89,3 +104,5 @@ widget.directive("file", function () {
         }
     };
 });
+
+

@@ -2,21 +2,20 @@
 
 //http://stackoverflow.com/questions/32803142/json-object-as-angularjs-factory
 
-//api.controller('dirController', ['$scope', 'directoryApi', function ($scope, directoryApi) {
-//    $scope.path = "";
+api.controller('dirController', ['$scope', 'directoryApi', function ($scope, directoryApi) {
+    $scope.path = "";
 
+    $scope.setpath = function (pathname) {
+        $scope.path = pathname;
+    }
 
-//    $scope.setpath = function (pathname) {
-//        $scope.path = pathname;
-//    }
+}]);
 
-//}]);
-
-api.factory("directoryApi", ["$http", function ($http) {
+api.factory("directoryApi", ["$http", function ( $http) {
     return {
 
         getItems: function (path) {
-            apiroute = '/api/directory/GetItems';
+            apiroute = '/api/directory/GetItems/';
 
             if (path != null && path != undefined) {
                 apiroute += path;
@@ -33,8 +32,8 @@ api.factory("directoryApi", ["$http", function ($http) {
             return items;
 
         },
-        setPath: function (pathname) {
-            return pathname;
+        getPath: function () {
+            return $scope.path;
         }
 
     };

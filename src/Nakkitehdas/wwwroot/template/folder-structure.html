@@ -8,10 +8,10 @@
                 {{folder.Name}}
             </a>
 
-            <sub-folder-structure ng-if="isOpen" 
+            <sub-folder-structure ng-if="isOpen;" 
                                   template="/template/folder-structure.html"
                                   parent-id="{{folder.Name}}"
-                                  ></sub-folder-structure>
+                                  path="{{folder.Name}}"></sub-folder-structure>
         </folder>
 
         <file ng-repeat="file in items | filter:{IsFile: true}">

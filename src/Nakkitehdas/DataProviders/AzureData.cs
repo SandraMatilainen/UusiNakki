@@ -51,7 +51,7 @@ namespace Nakkitehdas.DataProviders
                     {
                         IsFile = false,
                         IsFolder = true,
-                        Name = directory.Prefix.TrimEnd(new char[] { '/' }),
+                        Name = directory.Prefix.TrimEnd(new char[] { '/' }), 
                         ParentId =  "juuri"
                     });
                 }
@@ -59,7 +59,8 @@ namespace Nakkitehdas.DataProviders
                 //root files
                 else if (item.GetType() == typeof(CloudBlockBlob))
                 {
-                    var blobFileName = item.Uri.Segments.Last();
+                    var file = (CloudBlockBlob)item;
+                    var blobFileName = file.Name.Split('/').Last();
 
                     //add file
                     model.Add(new ItemModel()
@@ -88,7 +89,7 @@ namespace Nakkitehdas.DataProviders
 
         public CloudBlobContainer GetAzureContainer()
         {
-
+            //Todouse config
             string connectionString = "DefaultEndpointsProtocol=https;AccountName=nakkitehdas;AccountKey=xBRoHzBWZuRSBK9lTZtZYqumA+C95H1M1skHtM1vTC1GDjSuXOOzpwJenvXHb8YReDdFzc9yggEPg1ApZ3rN3A==";
 
             // Retrieve storage account from connection string.
@@ -121,6 +122,7 @@ namespace Nakkitehdas.DataProviders
 
                     if (blobDir.Parent != null)
                     {
+                        //to utf8
                         pid = blobDir.Parent.Uri.Segments.Last().TrimEnd(new char[] { '/' });
                     }
 
@@ -145,7 +147,7 @@ namespace Nakkitehdas.DataProviders
                         id = blobFile.Parent.Uri.Segments.Last().TrimEnd(new char[] { '/' });
                     }
 
-                    string name = blobFile.Uri.Segments.Last();
+                    string name = blobFile.Name.Split('/').Last();
 
                     //add file
                     model.Add(new ItemModel()
